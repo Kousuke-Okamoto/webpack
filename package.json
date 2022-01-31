@@ -1,0 +1,23 @@
+{
+  "name": "webpack-practice",
+  "version": "1.0.0",
+  "description": "About webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kousuke-Okamoto/webpack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kousuke-Okamoto/webpack/issues"
+  },
+  "homepage": "https://github.com/Kousuke-Okamoto/webpack#readme",
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
