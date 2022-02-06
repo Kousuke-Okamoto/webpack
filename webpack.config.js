@@ -12,7 +12,7 @@ module.exports = {
     filename: './js/main.js'
   },
   module: {
-    rules: [
+    rules: [//各拡張子に対するルールを設定していく
       {
         test: /\.css/,
         use: [
@@ -22,6 +22,18 @@ module.exports = {
           },
           {
             loader: 'css-loader',
+          },
+        ],
+      },
+      {
+        test: /\.png|\.jpg/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              name: 'images/[name].[ext]',
+            },
           },
         ],
       },
