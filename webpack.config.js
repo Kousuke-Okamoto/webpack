@@ -14,7 +14,7 @@ module.exports = {
   module: {
     rules: [//各拡張子に対するルールを設定していく
       {
-        test: /\.css/,
+        test: /\.(css|sass|scss)/,
         use: [
           {
             //loader: 'style-loader', html内にjsが記述される方式
@@ -23,18 +23,25 @@ module.exports = {
           {
             loader: 'css-loader',
           },
+          {
+            loader: 'sass-loader',
+          },
         ],
       },
       {
         test: /\.png|\.jpg/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]',
+        },
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              esModule: false,
-              name: 'images/[name].[ext]',
-            },
-          },
+          //{
+          //  loader: 'file-loader',
+          //  options: {
+          //    esModule: false,
+          //    name: 'images/[name].[ext]',
+          //  },
+          //},
         ],
       },
     ],
