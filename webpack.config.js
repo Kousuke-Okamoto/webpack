@@ -47,7 +47,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.png|\.jpg/,
+        test: /\.png|\.jpg|\.jpeg/,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name][ext]',
@@ -60,6 +60,9 @@ module.exports = {
           //    name: 'images/[name].[ext]',
           //  },
           //},
+          {
+            loader: 'image-webpack-loader',
+          }
         ],
       },
     ],
