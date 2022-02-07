@@ -6,6 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');//dist内をク�
 
 module.exports = {
   mode: 'development',
+  devtool: 'source-map',
   entry: './src/js/main.js',
   output: {
     path: path.resolve(__dirname, './dist/'),
@@ -13,6 +14,20 @@ module.exports = {
   },
   module: {
     rules: [//各拡張子に対するルールを設定していく
+      {
+        test: /\.js/,
+        exclude: /node_modules/,//トランスファイルの影響外に指定する
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', { "targets": "> 0.25%, not dead" }],//0.25%以上のシェアがあり、公式サポートが終了していないブラウザで動作するよう
+              ],
+            },
+          },
+        ],
+      },
       {
         test: /\.(css|sass|scss)/,
         use: [
@@ -22,6 +37,9 @@ module.exports = {
           },
           {
             loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
           },
           {
             loader: 'sass-loader',
