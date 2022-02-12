@@ -3,6 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');//dist内をクリーンナップ
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   mode: 'development',
@@ -65,9 +66,24 @@ module.exports = {
           }
         ],
       },
+      {
+        test: /\.vue/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'vue-loader',
+          }
+        ],
+      },
     ],
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
   plugins: [
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename:'./css/main.css',
     }),
