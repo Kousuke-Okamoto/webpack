@@ -4,13 +4,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');//dist内をクリーンナップ
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: './src/js/main.js',
   output: {
-    path: path.resolve(__dirname, './dist/'),
+    path: path.join(__dirname, './dist/'),
     filename: './js/main.js'
   },
   module: {
@@ -47,25 +48,25 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.png|\.jpg|\.jpeg/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'images/[name][ext]',
-        },
-        use: [
-          //{
-          //  loader: 'file-loader',
-          //  options: {
-          //    esModule: false,
-          //    name: 'images/[name].[ext]',
-          //  },
-          //},
-          {
-            loader: 'image-webpack-loader',
-          }
-        ],
-      },
+      //{
+      //  test: /\.png|\.jpg|\.jpeg/,
+      //  type: 'asset/resource',
+      //  generator: {
+      //    filename: 'images/[name][ext]',
+      //  },
+      //  use: [
+      //    //{
+      //    //  loader: 'file-loader',
+      //    //  options: {
+      //    //    esModule: false,
+      //    //    name: 'images/[name].[ext]',
+      //    //  },
+      //    //},
+      //    {
+      //      loader: 'image-webpack-loader',
+      //    }
+      //  ],
+      //},
       {
         test: /\.vue/,
         exclude: /node_modules/,
@@ -84,11 +85,21 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({
-      filename:'./css/main.css',
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `${__dirname}/src/images/`,
+          to: `${__dirname}/dist/images/`,
+        }
+      ]
     }),
-    new HtmlWebpackPlugin({
-      template: './src/templates/index.html',//テンプレートとして上記のjsやcssが自動的に読み込まれる
+    new MiniCssExtractPlugin({
+      filename:'./css/[name].css',
+    }),
+    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({  // Also generate a test.html
+      filename: 'test/index.html',
+      template: 'src/test/index.ejs'
     }),
     new CleanWebpackPlugin(),
   ],
