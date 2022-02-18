@@ -93,14 +93,25 @@ module.exports = {
         }
       ]
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `${__dirname}/src/templates/`,
+          to: `${__dirname}/dist/`,
+        }
+      ]
+    }),
     new MiniCssExtractPlugin({
       filename:'./css/[name].css',
     }),
-    new HtmlWebpackPlugin(),
-    new HtmlWebpackPlugin({  // Also generate a test.html
-      filename: 'test/index.html',
-      template: 'src/test/index.ejs'
-    }),
+    //new HtmlWebpackPlugin({  // Also generate a index.html
+    //  filename: './index.html',
+    //  template: 'src//index.html'
+    //}),
+    //new HtmlWebpackPlugin({  // Also generate a test.html
+    //  filename: 'test/index.html',
+    //  template: 'src/test/index.html'
+    //}),
     new CleanWebpackPlugin(),
   ],
 };
